@@ -24,6 +24,10 @@ package com.vicky;
 //При возникновении проблемы с чтением-записью в файл, исключение должно быть корректно обработано, пользователь должен увидеть стектрейс ошибки
 
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Main {
     public static void main(String[] args) {
         HumanCreator humanCreator = new DefaultHumanCreator();
@@ -31,35 +35,24 @@ public class Main {
 
             Human human = humanCreator.create();
             System.out.println(human);
+            write(human);
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
-
-
-//
-//    public void write(String[] personData) {
-//        try (FileWriter writer = new FileWriter(new File(personData[0] + ".txt"), true)) {
-//            Human human = new Human(personData[0], personData[1], personData[2], personData[3], personData[4], personData[5]);
-//            writer.write(human.toString());
-//            writer.write("\n");
-//            writer.flush();
-//        } catch (IOException e) {
-//            System.out.println("Ошибка файловой системы!!!");
-//        }
-//    }
-//    public void read(String nameFile) throws NonExistedFileException {
-//        try (BufferedReader buffer = new BufferedReader(new FileReader(nameFile + ".txt"))) {
-//            String line;
-//            while ((line = buffer.readLine()) != null) {
-//                System.out.println(line);
-//            }
-//        } catch (FileNotFoundException e) {
-//            throw new NonExistedFileException(nameFile);
-//        } catch (IOException e) {
-//            System.out.println("Ошибка файловой системы!!!");
-//        }
-//    }
-
     }
+
+
+    public static void write(Human human) {
+        try (FileWriter writer = new FileWriter(new File(human.getSurname() + ".txt"), true)) {
+            writer.write(human.toString());
+            writer.write("\n");
+            writer.flush();
+        } catch (IOException e) {
+            System.out.println("Ошибка файловой системы!!!");
+            System.err.println(e);
+        }
+    }
+
 }
+
 

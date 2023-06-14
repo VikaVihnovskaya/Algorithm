@@ -24,7 +24,7 @@ public class DefaultHumanValidator implements HumanValidator {
             throw new DateFormatException("Неверный формат даты рождения");
         }
         try {
-            Integer.parseInt(personData[4]);
+            Long.parseLong(personData[4]);
         } catch (NumberFormatException e) {
             throw new NumberFormatException("Неверный формат телефона");
         }
